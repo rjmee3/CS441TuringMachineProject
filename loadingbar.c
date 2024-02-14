@@ -1,6 +1,8 @@
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
+
 #define SLEEP 500000
 
 int main() {
@@ -17,5 +19,8 @@ int main() {
     printf("\r[### ]");
     fflush(stdout);
     usleep(SLEEP);
-    printf("\r[####]\n");
-}
+    printf("\r[####]\n"); 
+
+    printf("%ld", strlen(""));
+}    
+      
