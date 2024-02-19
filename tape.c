@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 #include "tape.h"
 
 void initTape(Tape* tape, char* input) {
@@ -11,7 +12,7 @@ void initTape(Tape* tape, char* input) {
     tape->index = 0;
 
     if (input != NULL) {
-        for (int i = 0; i < len(input); i++) {
+        for (int i = 0; i < strlen(input); i++) {
             tape->pos_tape[i].symbol = input[i];
             tape->pos_tape[i].blank = false;
         }
