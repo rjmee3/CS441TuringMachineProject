@@ -1,24 +1,28 @@
-#ifndef VM_H
-#define VM_H
+#ifndef ENCODINGS_H
+#define ENCODINGS_H
 
-/**********************
- *                    *
- *      OP CODES      *
- *                    *
- **********************/
+#include <stdint.h>
+#include <stdbool.h>
 
-#define OPCODE_ALP 0
-#define OPCODE_CMP 1
-#define OPCODE_JMP 2
-#define OPCODE_DRW 3
-#define OPCODE_MOV 4
-#define OPCODE_STP 5
 
-/**********************
- *                    *
- *     ENCODING       *
- *                    *
- **********************/
+/*******************************
+ *                             *
+ *           OPCODES           *
+ *                             *
+ *******************************/
+
+#define TM_OPCODE_ALP 0
+#define TM_OPCODE_CMP 1
+#define TM_OPCODE_JMP 2
+#define TM_OPCODE_DRW 3
+#define TM_OPCODE_MOV 4
+#define TM_OPCODE_STP 5
+
+/*******************************
+ *                             *
+ *     ENCODING STRUCTURE      *
+ *                             *
+ *******************************/
 
 typedef uint16_t tm_uword;
 typedef int16_t tm_sword;
@@ -26,6 +30,15 @@ typedef int16_t tm_sword;
 typedef union tm_word tm_word;
 typedef union tm_encoding tm_encoding;
 typedef struct tm_instruction tm_instruction;
+
+union tm_word {
+     struct {
+          uint16_t byte0 : 8;
+          uint16_t byte1 : 8;
+     } bytes;
+     tm_uword u;
+     tm_sword s;
+};
 
 union tm_encoding {
      struct {
