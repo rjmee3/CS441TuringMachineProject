@@ -1,65 +1,57 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "tape.h"
 
 void initTape(Tape* tape, char* input) {
-    tape->current = (TapeCell*)malloc(sizeof(TapeCell));
-    tape->current->symbol = ' ';
-    tape->current->next = NULL;
-    tape->current->prev = NULL;
-    
+    for (int i = 0; i < TAPE_LENGTH; i++) {
+        tape->pos_tape[i].blank = true;
+        tape->neg_tape[i].blank = true;
+    }
+
+    tape->index = 0;
+
     if (input != NULL) {
-        int inputLength = strlen(input);
-        for (int i = 0; i < inputLength; i++) {
-            tape->current->symbol = input[i];
-
-            if (i < inputLength - 1) {
-                if (tape->current->next == NULL) {
-                    TapeCell* newCell = (TapeCell*)malloc(sizeof(TapeCell));
-                    newCell->symbol = ' ';
-                    newCell->next = NULL;
-                    newCell->prev = tape->current;
-                    tape->current->next = newCell;
-                }
-
-                tape->current = tape->current->next;
-            }
-            
-        }
-
-        while (tape->current->prev != NULL) {
-            tape->current = tape->current->prev;
+        for (int i = 0; i < len(input); i++) {
+            tape->pos_tape[i].symbol = input[i];
+            tape->pos_tape[i].blank = false;
         }
     }
 }
 
-void moveHead(Tape* tape, signed int amt) {
-    if (amt >= 0) {
-        for (int i = 0; i < amt; i++) {
-            if (tape->current->next == NULL) {
-                TapeCell* newCell = (TapeCell*)malloc(sizeof(TapeCell));
-                newCell->symbol = ' ';
-                newCell->next = NULL;
-                newCell->prev = tape->current;
-                tape->current->next = newCell;
-            }
-            tape->current = tape->current->next;
-        }
+void moveTape(Tape* tape, int move) {
+    tape->index += move;
+}
+
+void writeTape(Tape* tape, char symbol) {
+    if (tape->index >= 0) {
+        tape->pos_tape[tape->index].symbol = symbol;
+        setBlank(tape, false);
     } else {
-        for (int i = 0; i < abs(amt); i++) {
-            if (tape->current->prev == NULL) {
-                TapeCell* newCell = (TapeCell*)malloc(sizeof(TapeCell));
-                newCell->symbol = ' ';
-                newCell->next = tape->current;
-                newCell->prev = NULL;
-                tape->current->prev = newCell;
-            }
-            tape->current = tape->current->prev;
-        }
+        tape->neg_tape[abs(tape->index)-1].symbol = symbol;
+        setBlank(tape, false);
     }
 }
 
-char readHead(Tape* tape) {
-    return tape->current->symbol;
+char readTape(Tape* tape) {
+    if (tape->index >= 0) {
+        return tape->pos_tape[tape->index].symbol;
+    } else {
+        return tape->neg_tape[abs(tape->index)-1].symbol;
+    }
+}
+
+void setBlank (Tape* tape, bool blank) {
+    if (tape->index >= 0) {
+        tape->pos_tape[tape->index].blank = blank;
+    } else {
+        tape->neg_tape[abs(tape->index)-1].blank = blank;
+    }
+}
+
+bool isBlank(Tape* tape) {
+    if (tape->index >= 0) {
+        return tape->pos_tape[tape->index].blank;
+    } else {
+        return tape->neg_tape[abs(tape->index)-1].blank;
+    }
 }

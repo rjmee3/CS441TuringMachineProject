@@ -3,22 +3,24 @@
 #ifndef TAPE_H
 #define TAPE_H
 
-    typedef struct TapeCell {
-        char symbol;
-        bool blank;
-        struct TapeCell* next;
-        struct TapeCell* prev;
-    } TapeCell;
+#define TAPE_LENGTH 4000
 
-    typedef struct {
-        TapeCell* current;
-    } Tape;
+typedef struct TapeCell {
+    char symbol;
+    bool blank;
+} TapeCell;
 
-    void initTape(Tape* tape, char* input);
-    void moveHead(Tape* tape, signed int amt);
-    char readHead(Tape* tape);
-    void writeHead(Tape* tape, char input);
-    char* printTape(Tape* tape);
-    void destroyTape(Tape* tape);
+typedef struct {
+    TapeCell pos_tape[TAPE_LENGTH/2];
+    TapeCell neg_tape[TAPE_LENGTH/2];
+    int index;
+} Tape;
+
+void initTape(Tape* tape, char* input);
+void moveTape(Tape* tape, int move);
+void writeTape(Tape* tape, char symbol);
+char readTape(Tape* tape);
+void setBlank(Tape* tape, bool blank);
+bool isBlank(Tape* tape);
 
 #endif
