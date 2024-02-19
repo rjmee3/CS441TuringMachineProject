@@ -7,20 +7,18 @@
 
 int main() {
     system("clear");
-    printf("[    ]");
+    printf("[        ]");
     fflush(stdout);
     usleep(SLEEP);
-    printf("\r[#   ]");
+    printf("\r[##      ]");
     fflush(stdout);
     usleep(SLEEP);
-    printf("\r[##  ]");
+    printf("\r[####    ]");
     fflush(stdout);
     usleep(SLEEP);
-    printf("\r[### ]");
+    printf("\r[######  ]");
     fflush(stdout);
     usleep(SLEEP);
-    printf("\r[####]\n"); 
-
-    printf("%ld", strlen(""));
+    printf("\r[########]\n"); 
 }    
       

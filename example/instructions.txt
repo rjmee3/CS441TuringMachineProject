@@ -1,0 +1,72 @@
+0x0041		alpha A
+0x0042		alpha B
+0x0061		alpha a
+0x0062		alpha b
+0x0024		alpha $
+0x2100		cmp BLANK
+0x4808		jne !1_nBLANK
+0xB000		HALT
+0x8001		move RIGHT 		!1_nBLANK
+0x580A		jmp !2
+0x2100		cmp BLANK		!2
+0x480E		jne !2_nBLANK
+0x9FFF		move LEFT
+0x5810		jmp !3
+0x8001		move RIGHT		!2_nBLANK
+0x580A		jmp !2
+0x2041		cmp A			!3
+0x3042		OR B
+0x501A		je !3_AorB
+0x2061		cmp a
+0x501C		je !3_a
+0x2062		cmp b
+0x501F		je !3_b
+0x2100		cmp BLANK
+0x5022		je !3_BLANK
+0xA000		FAIL
+0x9FFF		move LEFT		!3_AorB
+0x5810		jmp !3
+0x6041		draw A			!3_a
+0x8001		move RIGHT
+0x5824		jmp !4
+0x6042		draw B			!3_b
+0x8001		move RIGHT
+0x582B		jmp !5
+0x8001		move RIGHT		!3_BLANK
+0x5832		jmp !6
+0x2100		cmp BLANK		!4
+0x4829	    jne !4_nBLANK
+0x6041		draw A
+0x9FFF		move LEFT
+0x5810		jmp !3
+0x8001		move RIGHT		!4_nBLANK
+0x5824		jmp !4
+0x2100		cmp BLANK		!5
+0x2418		jne !5_nBLANK
+0x6042		draw B
+0x9FFF		move LEFT
+0x5810		jmp !3
+0x8001		move RIGHT		!5_nBLANK
+0x582B		jmp !5
+0x2041		cmp A			!6
+0x5039	    je !6_A
+0x2042		cmp B
+0x503C	    je !6_B
+0x2100		cmp BLANK
+0x503F	    je !6_BLANK
+0xA000		FAIL
+0x6061		draw a			!6_A
+0x8001		move RIGHT
+0x5832	    jmp !6
+0x6062		draw b			!6_B
+0x8001		move RIGHT
+0x5832	    jmp !6
+0x9FFF		move LEFT		!6_BLANK
+0x5841	    jmp !7
+0x2100		cmp BLANK		!7
+0x2446	    jne !7_nBLANK
+0x6024		draw $
+0x9FFF		move LEFT
+0xB000		HALT
+0x9FFF		move LEFT		!7_nBLANK
+0x5841    	jmp !7			
