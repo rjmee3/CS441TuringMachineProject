@@ -8,7 +8,7 @@
 int main(int argc, char *argv[]) {
     // handling incorrect number of arguments
     if (argc != 3) {
-        fprintf(stderr, "Usage: ./VM <.bin file> <.tape file>\n");
+        fprintf(stderr, "Usage: ./SUNY_VM <.bin file> <.tape file>\n");
         return 1;
     }
 
@@ -147,6 +147,6 @@ int main(int argc, char *argv[]) {
                 break;
             }
         }
-        
+
     }
 }
