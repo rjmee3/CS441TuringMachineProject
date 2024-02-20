@@ -69,6 +69,7 @@ int main(int argc, char *argv[]) {
     bool stop = false;
     bool fail = false;
 
+    // loop through each line of the input file
     while (fgets(buffer, sizeof(buffer), tape_file) != NULL) {
         
         // initialize everything as needed
@@ -76,6 +77,7 @@ int main(int argc, char *argv[]) {
         prog_counter = 0;
         eq_flag = false;
 
+        // continue executing instructions until halt or failure
         while (!stop) {
             /*************************
              *                       *
@@ -106,6 +108,10 @@ int main(int argc, char *argv[]) {
                         eq_flag = false;
                     }
                 } else {
+                    if (!alphabet[instr_reg.cmp.letter]) {
+                        stop = true;
+                        fail = true;
+                    }
                     if (instr_reg.cmp.letter == readTape(tape)) {
                         eq_flag = true;
                     } else if (!instr_reg.cmp.oring) {
@@ -147,6 +153,5 @@ int main(int argc, char *argv[]) {
                 break;
             }
         }
-
     }
 }
