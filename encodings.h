@@ -24,23 +24,7 @@
  *                             *
  *******************************/
 
-typedef uint16_t tm_uword;
-typedef int16_t tm_sword;
-
-typedef union tm_word tm_word;
-typedef union tm_encoding tm_encoding;
-typedef struct tm_instruction tm_instruction;
-
-union tm_word {
-     struct {
-          uint16_t byte0 : 8;
-          uint16_t byte1 : 8;
-     } bytes;
-     tm_uword u;
-     tm_sword s;
-};
-
-union tm_encoding {
+typedef union tm_encoding {
      struct {
           uint16_t rsvd   : 13;
           uint16_t opcode : 3;
@@ -70,7 +54,7 @@ union tm_encoding {
           uint16_t opcode : 3;
      } draw;
      struct {
-          int16_t amount   : 13;
+          int16_t amount  : 13;
           uint16_t opcode : 3;
      } move;
      struct {
@@ -78,7 +62,6 @@ union tm_encoding {
           uint16_t halt   : 1;
           uint16_t opcode : 3;
      } stop;
-     tm_word word;
-};
+} tm_encoding;
 
 #endif
