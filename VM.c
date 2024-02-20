@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     }
 
     // handling file opening failures
-    FILE* bin_file = fopen(argv[1], "r");
+    FILE* bin_file = fopen(argv[1], "rb");
     if (bin_file == NULL) {
         fprintf(stderr, "ERROR: .bin file failed to open.\n");
         return 1;
@@ -94,8 +94,8 @@ int main(int argc, char *argv[]) {
              *                       *
              *************************/
 
-            switch (instr_reg.generic.opcode)
-            {
+            // switch based on OPCODE
+            switch (instr_reg.generic.opcode) {
             case TM_OPCODE_ALP:
                 alphabet[instr_reg.alpha.letter] = true;
                 break;
@@ -107,16 +107,13 @@ int main(int argc, char *argv[]) {
                     } else if (!instr_reg.cmp.oring) {
                         eq_flag = false;
                     }
-                } else {
-                    if (!alphabet[instr_reg.cmp.letter]) {
-                        stop = true;
-                        fail = true;
-                    }
-                    if (instr_reg.cmp.letter == readTape(tape)) {
-                        eq_flag = true;
-                    } else if (!instr_reg.cmp.oring) {
-                        eq_flag = false;
-                    }
+                } else if (!alphabet[instr_reg.cmp.letter]) {
+                    stop = true;
+                    fail = true;
+                } else if (instr_reg.cmp.letter == readTape(tape)) {
+                    eq_flag = true;
+                } else if (!instr_reg.cmp.oring) {
+                    eq_flag = false;
                 }
                 break;
 
