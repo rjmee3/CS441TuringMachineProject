@@ -56,3 +56,7 @@ bool isBlank(Tape* tape) {
         return tape->neg_tape[abs(tape->index)-1].blank;
     }
 }
+
+void printTape(Tape* tape) {
+    
+}

@@ -81,9 +81,4 @@ union tm_encoding {
      tm_word word;
 };
 
-struct tm_instruction {
-     int line_num;
-     tm_encoding encoding;
-};
-
 #endif

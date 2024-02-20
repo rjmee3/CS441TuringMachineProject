@@ -3,16 +3,16 @@
 #ifndef TAPE_H
 #define TAPE_H
 
-#define TAPE_LENGTH 4000
+#define TAPE_LENGTH 2000
 
-typedef struct TapeCell {
+typedef struct {
     char symbol;
     bool blank;
 } TapeCell;
 
 typedef struct {
-    TapeCell pos_tape[TAPE_LENGTH/2];
-    TapeCell neg_tape[TAPE_LENGTH/2];
+    TapeCell pos_tape[TAPE_LENGTH];
+    TapeCell neg_tape[TAPE_LENGTH];
     int index;
 } Tape;
 
