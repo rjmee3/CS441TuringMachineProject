@@ -20,7 +20,8 @@ void initTape(Tape* tape, char* input);
 void moveTape(Tape* tape, int move);
 void writeTape(Tape* tape, char symbol);
 char readTape(Tape* tape);
-void setBlank(Tape* tape, bool blank);
+void setBlank(Tape* tape);
 bool isBlank(Tape* tape);
+void printTape(Tape* tape);
 
 #endif

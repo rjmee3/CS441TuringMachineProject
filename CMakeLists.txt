@@ -4,6 +4,9 @@ project(SUNY_VM)
 # main exe
 add_executable(SUNY_VM VM.c)
 
+# adding -g flag for debugging
+target_compile_options(SUNY_VM PRIVATE -g)
+
 #link libraries
 target_link_libraries(SUNY_VM m)
 

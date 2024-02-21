@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
 
     // create other structures needed
     char buffer[1024];
-    Tape* tape;
+    Tape tape;
     bool stop = false;
     bool fail = false;
 
@@ -73,9 +73,11 @@ int main(int argc, char *argv[]) {
     while (fgets(buffer, sizeof(buffer), tape_file) != NULL) {
         
         // initialize everything as needed
-        initTape(tape, buffer);
+        initTape(&tape, buffer);
         prog_counter = 0;
         eq_flag = false;
+        stop = false;
+        fail = false;
 
         // continue executing instructions until halt or failure
         while (!stop) {
@@ -88,6 +90,12 @@ int main(int argc, char *argv[]) {
             instr_reg = instructions[prog_counter];
             prog_counter++;
 
+            // printing binary representation
+            for (int i = 15; i >= 0; i--) {
+                // fprintf(stderr, "%d", (instr_reg.word>>i) & 1);
+            }
+            // fprintf(stderr, " ");
+
             /*************************
              *                       *
              *        EXECUTE        *
@@ -98,11 +106,12 @@ int main(int argc, char *argv[]) {
             switch (instr_reg.generic.opcode) {
             case TM_OPCODE_ALP:
                 alphabet[instr_reg.alpha.letter] = true;
+                // fprintf(stderr, "ALPHA %c\n", instr_reg.alpha.letter);
                 break;
 
             case TM_OPCODE_CMP:
                 if (instr_reg.cmp.blank) {
-                    if (isBlank(tape)) {
+                    if (isBlank(&tape)) {
                         eq_flag = true;
                     } else if (!instr_reg.cmp.oring) {
                         eq_flag = false;
@@ -110,39 +119,66 @@ int main(int argc, char *argv[]) {
                 } else if (!alphabet[instr_reg.cmp.letter]) {
                     stop = true;
                     fail = true;
-                } else if (instr_reg.cmp.letter == readTape(tape)) {
+                } else if (instr_reg.cmp.letter == readTape(&tape)) {
                     eq_flag = true;
                 } else if (!instr_reg.cmp.oring) {
                     eq_flag = false;
                 }
+                if (instr_reg.cmp.blank) {
+                    if (instr_reg.cmp.oring) {
+                        // fprintf(stderr, "OR BLANK\n");
+                    } else {
+                        // fprintf(stderr, "CMP BLANK\n");
+                    }
+                } else {
+                    if (instr_reg.cmp.oring) {
+                        // fprintf(stderr, "OR %c\n", instr_reg.cmp.letter);
+                    } else {
+                        // fprintf(stderr, "CMP %c\n", instr_reg.cmp.letter);
+                    }
+                }
+                
                 break;
 
             case TM_OPCODE_JMP:
-                if ((instr_reg.jmp.ne && instr_reg.jmp.eq) 
-                 || (instr_reg.jmp.eq && eq_flag) 
-                 || (instr_reg.jmp.ne && !eq_flag)) {
+                if ((instr_reg.jmp.ne == instr_reg.jmp.eq) 
+                 || (instr_reg.jmp.eq == eq_flag) 
+                 || (instr_reg.jmp.ne == !eq_flag)) {
                     prog_counter = instr_reg.jmp.addr;
+                }
+                if (instr_reg.jmp.ne && instr_reg.jmp.eq) {
+                    // fprintf(stderr, "JMP %d\n", instr_reg.jmp.addr);
+                } else if (instr_reg.jmp.eq == 1) {
+                    // fprintf(stderr, "JEQ %d\n", instr_reg.jmp.addr);
+                } else if (instr_reg.jmp.ne == 1) {
+                    // fprintf(stderr, "JNE %d\n", instr_reg.jmp.addr);
+                } else {
+                    // fprintf(stderr, "ERROR\n");
                 }
                 break;
 
             case TM_OPCODE_DRW:
                 if (instr_reg.draw.blank) {
-                    setBlank(tape, true);
+                    setBlank(&tape);
+                    // fprintf(stderr, "DRAW BLANK\n");
                 } else {
-                    setBlank(tape, false);
-                    writeTape(tape, instr_reg.draw.letter);
+                    writeTape(&tape, instr_reg.draw.letter);
+                    // fprintf(stderr, "DRAW %c\n", instr_reg.draw.letter);
                 }
                 break;
 
             case TM_OPCODE_MOV:
-                moveTape(tape, instr_reg.move.amount);
+                moveTape(&tape, instr_reg.move.amount);
+                // fprintf(stderr, "MOVE %d\n", instr_reg.move.amount);
                 break;
 
             case TM_OPCODE_STP:
                 if (!instr_reg.stop.halt) {
                     fail = true;
+                    // fprintf(stderr, "FAIL\n");
                 }
                 stop = true;
+                // fprintf(stderr, "HALT\n");
                 break;
             
             default:
@@ -150,5 +186,7 @@ int main(int argc, char *argv[]) {
                 break;
             }
         }
+
+        printTape(&tape);
     }
 }

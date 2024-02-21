@@ -62,6 +62,8 @@ typedef union tm_encoding {
           uint16_t halt   : 1;
           uint16_t opcode : 3;
      } stop;
+
+     uint16_t word : 16;
 } tm_encoding;
 
 #endif
