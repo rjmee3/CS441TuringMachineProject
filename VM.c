@@ -2,10 +2,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 #include "encodings.h"
 #include "tape.h"
 
+#define FRAME_DELAY 5000
+
 int main(int argc, char *argv[]) {
+
+    bool animate = true;
+
     // handling incorrect number of arguments
     if (argc != 3) {
         fprintf(stderr, "Usage: ./SUNY_VM <.bin file> <.tape file>\n");
@@ -68,9 +74,18 @@ int main(int argc, char *argv[]) {
     Tape tape;
     bool stop = false;
     bool fail = false;
+    int instr_counter;
+    int move_counter;
+    int instr_total = 0;
+    int move_total = 0;
 
     // loop through each line of the input file
     while (fgets(buffer, sizeof(buffer), tape_file) != NULL) {
+        // Remove newline character, if present
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
         
         // initialize everything as needed
         initTape(&tape, buffer);
@@ -78,23 +93,37 @@ int main(int argc, char *argv[]) {
         eq_flag = false;
         stop = false;
         fail = false;
+        instr_counter = 0;
+        move_counter = 0;
+
+        for (int i = 0; i < (sizeof(alphabet)/sizeof(alphabet[0])); i++) {
+            alphabet[i] = false;
+        }
 
         // continue executing instructions until halt or failure
         while (!stop) {
+            /*************************
+             *                       *
+             *        ANIMATE        *
+             *                       *
+             *************************/
+            if (animate) {
+                printTape(&tape);
+                fflush(stdout);
+                usleep(FRAME_DELAY);
+                printf("\r\033[0K\033[1A\033[0K");
+                fflush(stdout);
+            }
+
             /*************************
              *                       *
              *         FETCH         *
              *                       *
              *************************/
 
-            instr_reg = instructions[prog_counter];
-            prog_counter++;
-
-            // printing binary representation
-            for (int i = 15; i >= 0; i--) {
-                // fprintf(stderr, "%d", (instr_reg.word>>i) & 1);
-            }
-            // fprintf(stderr, " ");
+            instr_reg = instructions[prog_counter++];
+            instr_counter++;
+            instr_total++;
 
             /*************************
              *                       *
@@ -106,38 +135,25 @@ int main(int argc, char *argv[]) {
             switch (instr_reg.generic.opcode) {
             case TM_OPCODE_ALP:
                 alphabet[instr_reg.alpha.letter] = true;
-                // fprintf(stderr, "ALPHA %c\n", instr_reg.alpha.letter);
                 break;
 
             case TM_OPCODE_CMP:
-                if (instr_reg.cmp.blank) {
+                if (!alphabet[readTape(&tape)] && !isBlank(&tape)) {
+                    stop = true;
+                    fail = true;
+                } else if (instr_reg.cmp.blank) {
                     if (isBlank(&tape)) {
                         eq_flag = true;
                     } else if (!instr_reg.cmp.oring) {
                         eq_flag = false;
+                    } else {
+                        eq_flag = false;
                     }
-                } else if (!alphabet[instr_reg.cmp.letter]) {
-                    stop = true;
-                    fail = true;
                 } else if (instr_reg.cmp.letter == readTape(&tape)) {
                     eq_flag = true;
                 } else if (!instr_reg.cmp.oring) {
                     eq_flag = false;
                 }
-                if (instr_reg.cmp.blank) {
-                    if (instr_reg.cmp.oring) {
-                        // fprintf(stderr, "OR BLANK\n");
-                    } else {
-                        // fprintf(stderr, "CMP BLANK\n");
-                    }
-                } else {
-                    if (instr_reg.cmp.oring) {
-                        // fprintf(stderr, "OR %c\n", instr_reg.cmp.letter);
-                    } else {
-                        // fprintf(stderr, "CMP %c\n", instr_reg.cmp.letter);
-                    }
-                }
-                
                 break;
 
             case TM_OPCODE_JMP:
@@ -146,39 +162,27 @@ int main(int argc, char *argv[]) {
                  || (instr_reg.jmp.ne == !eq_flag)) {
                     prog_counter = instr_reg.jmp.addr;
                 }
-                if (instr_reg.jmp.ne && instr_reg.jmp.eq) {
-                    // fprintf(stderr, "JMP %d\n", instr_reg.jmp.addr);
-                } else if (instr_reg.jmp.eq == 1) {
-                    // fprintf(stderr, "JEQ %d\n", instr_reg.jmp.addr);
-                } else if (instr_reg.jmp.ne == 1) {
-                    // fprintf(stderr, "JNE %d\n", instr_reg.jmp.addr);
-                } else {
-                    // fprintf(stderr, "ERROR\n");
-                }
                 break;
 
             case TM_OPCODE_DRW:
                 if (instr_reg.draw.blank) {
                     setBlank(&tape);
-                    // fprintf(stderr, "DRAW BLANK\n");
                 } else {
                     writeTape(&tape, instr_reg.draw.letter);
-                    // fprintf(stderr, "DRAW %c\n", instr_reg.draw.letter);
                 }
                 break;
 
             case TM_OPCODE_MOV:
                 moveTape(&tape, instr_reg.move.amount);
-                // fprintf(stderr, "MOVE %d\n", instr_reg.move.amount);
+                move_counter += abs(instr_reg.move.amount);
+                move_total += abs(instr_reg.move.amount);
                 break;
 
             case TM_OPCODE_STP:
                 if (!instr_reg.stop.halt) {
                     fail = true;
-                    // fprintf(stderr, "FAIL\n");
                 }
                 stop = true;
-                // fprintf(stderr, "HALT\n");
                 break;
             
             default:
@@ -188,5 +192,20 @@ int main(int argc, char *argv[]) {
         }
 
         printTape(&tape);
+        printf("\n");
+
+        if (fail) {
+            printf("Failed after %d moves and %d instructions executed.\n", move_counter, instr_counter);
+        } else {
+            printf("Halted after %d moves and %d instructions executed.\n", move_counter, instr_counter);
+        }
+
+        // printf("LAST INSTRUCTION EXECUTED: %d INSTR # %d\n\n", instructions[prog_counter-1].word, prog_counter-1);
+        printf("\n\n");
+        
     }
+
+    printf("Totals across all tapes...\n");
+    printf("Moves: %d\n", move_total);
+    printf("Instructions: %d\n", instr_total);
 }

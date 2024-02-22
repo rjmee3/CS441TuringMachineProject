@@ -68,8 +68,6 @@ void printTape(Tape* tape) {
     char full_tape[TAPE_LENGTH*2+1];
     char full_head[TAPE_LENGTH*2+1];
 
-    // tape->index = 0;
-
     int combinedIndex = 0;
     for (int i = TAPE_LENGTH - 1; i >= 0; i--) {
         if (-i-1 == tape->index) {
@@ -98,8 +96,8 @@ void printTape(Tape* tape) {
     }
 
     // trim trailing whitespace
-    char *end_tape = full_tape + strlen(full_tape) - 1;
-    char *end_head = full_head + strlen(full_head) - 1;
+    char *end_tape = full_tape + combinedIndex - 1;
+    char *end_head = full_head + combinedIndex - 1;
     while ((end_tape > start_tape && isspace(*end_tape)) && (end_head > start_head && isspace(*end_head))) {
         end_tape--;
         end_head--;
@@ -111,6 +109,6 @@ void printTape(Tape* tape) {
     memmove(full_tape, start_tape, strlen(start_tape) + 1);
     memmove(full_head, start_head, strlen(start_head) + 1);
 
-    fprintf(stderr, "\n%s\n", full_tape);
-    fprintf(stderr, "%s\n", full_head);
+    printf("%s\n", full_tape);
+    printf("%s", full_head);
 }

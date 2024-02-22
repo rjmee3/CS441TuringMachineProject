@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/SUNY_VM.dir/VM.c.o CMakeFiles/SUNY_VM.dir/tape.c.o -o SUNY_VM  -lm 

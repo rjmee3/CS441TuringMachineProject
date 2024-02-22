@@ -1,0 +1,3 @@
+/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles/SUNY_VM.dir
+/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles/edit_cache.dir
+/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles/rebuild_cache.dir

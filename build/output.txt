@@ -1,0 +1,40 @@
+Halted after 115 moves and 525 instructions executed.
+ababa
+^    
+Halted after 10 moves and 55 instructions executed.
+a
+^
+Halted after 10 moves and 59 instructions executed.
+b
+^
+Halted after 14 moves and 79 instructions executed.
+a
+^
+Halted after 15 moves and 89 instructions executed.
+b
+^
+Halted after 36 moves and 180 instructions executed.
+ab
+^ 
+Halted after 29 moves and 150 instructions executed.
+ab
+^ 
+Halted after 1313 moves and 5480 instructions executed.
+babababababababababa
+^                   
+Halted after 2052 moves and 8547 instructions executed.
+ababababababababababababa
+^                        
+Halted after 1827 moves and 7572 instructions executed.
+babababababababa
+^               
+Halted after 0 moves and 7 instructions executed.
+
+
+^
+Halted after 166 moves and 828 instructions executed.
+ba
+^ 
+Halted after 1641 moves and 6820 instructions executed.
+ababababababababababab
+^                     
