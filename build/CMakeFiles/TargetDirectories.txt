@@ -1,3 +1,0 @@
-/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles/SUNY_VM.dir
-/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles/edit_cache.dir
-/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles/rebuild_cache.dir
