@@ -108,10 +108,11 @@ int main(int argc, char *argv[]) {
              *                       *
              *************************/
             if (animate) {
+                printf("%d moves and %d instructions executed.\n", move_counter, instr_counter);
                 printTape(&tape);
                 fflush(stdout);
                 usleep(FRAME_DELAY);
-                printf("\r\033[0K\033[1A\033[0K");
+                printf("\r\033[0K\033[1A\033[0K\033[1A\033[0K");
                 fflush(stdout);
             }
 
@@ -191,16 +192,15 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        printTape(&tape);
-        printf("\n");
+        
 
         if (fail) {
-            printf("Failed after %d moves and %d instructions executed.\n", move_counter, instr_counter);
+            printf("%d moves and %d instructions executed. \033[1;31mFAILED\033[0m\n", move_counter, instr_counter);
         } else {
-            printf("Halted after %d moves and %d instructions executed.\n", move_counter, instr_counter);
+            printf("%d moves and %d instructions executed. \033[1;32mHALTED\033[0m\n", move_counter, instr_counter);
         }
 
-        // printf("LAST INSTRUCTION EXECUTED: %d INSTR # %d\n\n", instructions[prog_counter-1].word, prog_counter-1);
+        printTape(&tape);
         printf("\n\n");
         
     }
