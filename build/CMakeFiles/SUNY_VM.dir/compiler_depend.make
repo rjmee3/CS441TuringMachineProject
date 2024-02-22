@@ -67,6 +67,7 @@ CMakeFiles/SUNY_VM.dir/VM.c.o: ../VM.c \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/strings.h \
+  /usr/include/regex.h \
   ../encodings.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h \
   /usr/include/stdint.h \
@@ -190,6 +191,8 @@ CMakeFiles/SUNY_VM.dir/tape.c.o: ../tape.c \
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
+
+/usr/include/regex.h:
 
 ../VM.c:
 

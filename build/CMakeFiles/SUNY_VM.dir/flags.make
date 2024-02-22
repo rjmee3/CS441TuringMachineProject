@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject
+C_INCLUDES = -I/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject
 
 C_FLAGS = -g
 

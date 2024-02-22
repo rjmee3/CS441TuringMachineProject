@@ -1,4 +1,4 @@
-# Install script for directory: /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject
+# Install script for directory: /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

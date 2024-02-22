@@ -1,5 +1,5 @@
 CMakeFiles/SUNY_VM.dir/tape.c.o: \
- /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/tape.c \
+ /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/tape.c \
  /usr/include/stdc-predef.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -52,4 +52,4 @@ CMakeFiles/SUNY_VM.dir/tape.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/tape.h
+ /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/tape.h

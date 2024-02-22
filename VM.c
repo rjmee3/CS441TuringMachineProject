@@ -3,31 +3,90 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
+#include <regex.h>
 #include "encodings.h"
 #include "tape.h"
 
-#define FRAME_DELAY 5000
-
 int main(int argc, char *argv[]) {
 
-    bool animate = true;
+    bool animate = false;
+    int frame_delay;
+    regex_t regex_bin;
+    regex_t regex_tape;
+    FILE* bin_file;
+    FILE* tape_file;
 
-    // handling incorrect number of arguments
-    if (argc != 3) {
-        fprintf(stderr, "Usage: ./SUNY_VM <.bin file> <.tape file>\n");
-        return 1;
+    if (regcomp(&regex_bin, "\\.bin$", 0) != 0) {
+        fprintf(stderr, "ERROR: RegEx failed to compile.");
+        exit(EXIT_FAILURE);
     }
-
-    // handling file opening failures
-    FILE* bin_file = fopen(argv[1], "rb");
-    if (bin_file == NULL) {
-        fprintf(stderr, "ERROR: .bin file failed to open.\n");
-        return 1;
+    if (regcomp(&regex_tape, "\\.tape$", 0) != 0) {
+        fprintf(stderr, "ERROR: RegEx failed to compile.");
+        exit(EXIT_FAILURE);
     }
+    
+    // handling number of arguments
+    if (argc == 3) {
+        if (regexec(&regex_bin, argv[1], 0, NULL, 0) != 0) {
+            fprintf(stderr, "ERROR: argv[1] - Incorrect file type. Expected <*.bin>.");
+            exit(EXIT_FAILURE);
+        }
+        if (regexec(&regex_tape, argv[2], 0, NULL, 0) != 0) {
+            fprintf(stderr, "ERROR: argv[2] - Incorrect file type. Expected <*.tape>.");
+            exit(EXIT_FAILURE);
+        }
 
-    FILE* tape_file = fopen(argv[2], "r");
-    if (tape_file == NULL) {
-        fprintf(stderr, "ERROR: .tape file failed to open.\n");
+        // handling file opening failures
+        bin_file = fopen(argv[1], "rb");
+        if (bin_file == NULL) {
+            fprintf(stderr, "ERROR: .bin file failed to open.\n");
+            return 1;
+        }
+
+        tape_file = fopen(argv[2], "r");
+        if (tape_file == NULL) {
+            fprintf(stderr, "ERROR: .tape file failed to open.\n");
+            return 1;
+        }
+    } else if (argc == 5) {
+        regex_t regex_num;
+        if (regcomp(&regex_num, "^[0-9]*$", 0) != 0) {
+            fprintf(stderr, "ERROR: RegEx failed to compile.\n");
+            exit(EXIT_FAILURE);
+        }
+        if (strcmp(argv[1], "-a") != 0 && strcmp(argv[1], "--animate") != 0) {
+            fprintf(stderr, "ERROR: argv[1] - Invalid Option. Expected [-a|--animate].\n");
+            exit(EXIT_FAILURE);
+        } else if (regexec(&regex_num, argv[2], 0, NULL, 0) != 0) {
+            fprintf(stderr, "ERROR: argv[2] - Invalid Argument. Expected a number.\n");
+            exit(EXIT_FAILURE);
+        } else {
+            animate = true;
+            frame_delay = atoi(argv[2]);
+        }
+        if (regexec(&regex_bin, argv[3], 0, NULL, 0) != 0) {
+            fprintf(stderr, "ERROR: argv[3] - Incorrect file type. Expected <*.bin>.\n");
+            exit(EXIT_FAILURE);
+        }
+        if (regexec(&regex_tape, argv[4], 0, NULL, 0) != 0) {
+            fprintf(stderr, "ERROR: argv[4] - Incorrect file type. Expected <*.tape>.\n");
+            exit(EXIT_FAILURE);
+        }
+
+        // handling file opening failures
+        bin_file = fopen(argv[3], "rb");
+        if (bin_file == NULL) {
+            fprintf(stderr, "ERROR: .bin file failed to open.\n");
+            return 1;
+        }
+
+        tape_file = fopen(argv[4], "r");
+        if (tape_file == NULL) {
+            fprintf(stderr, "ERROR: .tape file failed to open.\n");
+            return 1;
+        }
+    } else {
+        fprintf(stderr, "Usage: ./SUNY_VM [-a|--animate] [number of microseconds] <*.bin> <*.tape>\n");
         return 1;
     }
 
@@ -111,7 +170,7 @@ int main(int argc, char *argv[]) {
                 printf("%d moves and %d instructions executed.\n", move_counter, instr_counter);
                 printTape(&tape);
                 fflush(stdout);
-                usleep(FRAME_DELAY);
+                usleep(frame_delay);
                 printf("\r\033[0K\033[1A\033[0K\033[1A\033[0K");
                 fflush(stdout);
             }

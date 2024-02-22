@@ -1,0 +1,7 @@
+abababab
+aabbaabbaabbaabb
+aaabbbaaabbbaaabbbaaabbb
+aaaabbbbaaaabbbbaaaabbbbaaaabbbb
+aaaaabbbbbaaaaabbbbbaaaaabbbbbaaaaabbbbb
+aaaaaabbbbbbaaaaaabbbbbbaaaaaabbbbbbaaaaaabbbbbb
+aaaaaaabbbbbbbaaaaaaabbbbbbbaaaaaaabbbbbbbaaaaaaabbbbbbb

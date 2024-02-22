@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject
+CMAKE_SOURCE_DIR = /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build
+CMAKE_BINARY_DIR = /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SUNY_VM.dir/depend.make
@@ -72,30 +72,30 @@ include CMakeFiles/SUNY_VM.dir/flags.make
 CMakeFiles/SUNY_VM.dir/VM.c.o: CMakeFiles/SUNY_VM.dir/flags.make
 CMakeFiles/SUNY_VM.dir/VM.c.o: ../VM.c
 CMakeFiles/SUNY_VM.dir/VM.c.o: CMakeFiles/SUNY_VM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/SUNY_VM.dir/VM.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SUNY_VM.dir/VM.c.o -MF CMakeFiles/SUNY_VM.dir/VM.c.o.d -o CMakeFiles/SUNY_VM.dir/VM.c.o -c /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/VM.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/SUNY_VM.dir/VM.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SUNY_VM.dir/VM.c.o -MF CMakeFiles/SUNY_VM.dir/VM.c.o.d -o CMakeFiles/SUNY_VM.dir/VM.c.o -c /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/VM.c
 
 CMakeFiles/SUNY_VM.dir/VM.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SUNY_VM.dir/VM.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/VM.c > CMakeFiles/SUNY_VM.dir/VM.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/VM.c > CMakeFiles/SUNY_VM.dir/VM.c.i
 
 CMakeFiles/SUNY_VM.dir/VM.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SUNY_VM.dir/VM.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/VM.c -o CMakeFiles/SUNY_VM.dir/VM.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/VM.c -o CMakeFiles/SUNY_VM.dir/VM.c.s
 
 CMakeFiles/SUNY_VM.dir/tape.c.o: CMakeFiles/SUNY_VM.dir/flags.make
 CMakeFiles/SUNY_VM.dir/tape.c.o: ../tape.c
 CMakeFiles/SUNY_VM.dir/tape.c.o: CMakeFiles/SUNY_VM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/SUNY_VM.dir/tape.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SUNY_VM.dir/tape.c.o -MF CMakeFiles/SUNY_VM.dir/tape.c.o.d -o CMakeFiles/SUNY_VM.dir/tape.c.o -c /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/tape.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/SUNY_VM.dir/tape.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SUNY_VM.dir/tape.c.o -MF CMakeFiles/SUNY_VM.dir/tape.c.o.d -o CMakeFiles/SUNY_VM.dir/tape.c.o -c /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/tape.c
 
 CMakeFiles/SUNY_VM.dir/tape.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SUNY_VM.dir/tape.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/tape.c > CMakeFiles/SUNY_VM.dir/tape.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/tape.c > CMakeFiles/SUNY_VM.dir/tape.c.i
 
 CMakeFiles/SUNY_VM.dir/tape.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SUNY_VM.dir/tape.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/tape.c -o CMakeFiles/SUNY_VM.dir/tape.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/tape.c -o CMakeFiles/SUNY_VM.dir/tape.c.s
 
 # Object files for target SUNY_VM
 SUNY_VM_OBJECTS = \
@@ -109,7 +109,7 @@ SUNY_VM: CMakeFiles/SUNY_VM.dir/VM.c.o
 SUNY_VM: CMakeFiles/SUNY_VM.dir/tape.c.o
 SUNY_VM: CMakeFiles/SUNY_VM.dir/build.make
 SUNY_VM: CMakeFiles/SUNY_VM.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable SUNY_VM"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable SUNY_VM"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SUNY_VM.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -121,6 +121,6 @@ CMakeFiles/SUNY_VM.dir/clean:
 .PHONY : CMakeFiles/SUNY_VM.dir/clean
 
 CMakeFiles/SUNY_VM.dir/depend:
-	cd /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build /home/rjmeeker3/SUNYPolySpring24/CS441_Comp_Sys_Arch/CS441TuringMachineProject/build/CMakeFiles/SUNY_VM.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build /home/rjmeeker3/Spring24/CS441/CS441TuringMachineProject/build/CMakeFiles/SUNY_VM.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/SUNY_VM.dir/depend
 
