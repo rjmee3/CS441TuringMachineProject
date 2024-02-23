@@ -11,31 +11,11 @@ int main(int argc, char *argv[]) {
 
     bool animate = false;
     int frame_delay;
-    regex_t regex_bin;
-    regex_t regex_tape;
     FILE* bin_file;
     FILE* tape_file;
-
-    if (regcomp(&regex_bin, "\\.bin$", 0) != 0) {
-        fprintf(stderr, "ERROR: RegEx failed to compile.");
-        exit(EXIT_FAILURE);
-    }
-    if (regcomp(&regex_tape, "\\.tape$", 0) != 0) {
-        fprintf(stderr, "ERROR: RegEx failed to compile.");
-        exit(EXIT_FAILURE);
-    }
     
     // handling number of arguments
     if (argc == 3) {
-        if (regexec(&regex_bin, argv[1], 0, NULL, 0) != 0) {
-            fprintf(stderr, "ERROR: argv[1] - Incorrect file type. Expected <*.bin>.");
-            exit(EXIT_FAILURE);
-        }
-        if (regexec(&regex_tape, argv[2], 0, NULL, 0) != 0) {
-            fprintf(stderr, "ERROR: argv[2] - Incorrect file type. Expected <*.tape>.");
-            exit(EXIT_FAILURE);
-        }
-
         // handling file opening failures
         bin_file = fopen(argv[1], "rb");
         if (bin_file == NULL) {
@@ -63,14 +43,6 @@ int main(int argc, char *argv[]) {
         } else {
             animate = true;
             frame_delay = atoi(argv[2]);
-        }
-        if (regexec(&regex_bin, argv[3], 0, NULL, 0) != 0) {
-            fprintf(stderr, "ERROR: argv[3] - Incorrect file type. Expected <*.bin>.\n");
-            exit(EXIT_FAILURE);
-        }
-        if (regexec(&regex_tape, argv[4], 0, NULL, 0) != 0) {
-            fprintf(stderr, "ERROR: argv[4] - Incorrect file type. Expected <*.tape>.\n");
-            exit(EXIT_FAILURE);
         }
 
         // handling file opening failures
