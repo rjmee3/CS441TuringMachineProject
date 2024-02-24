@@ -114,6 +114,8 @@ int main(int argc, char *argv[]) {
     int instr_total = 0;
     int move_total = 0;
 
+    printf("\033[?25l");
+
     // loop through each line of the input file
     while (fgets(buffer, sizeof(buffer), tape_file) != NULL) {
         // Remove newline character, if present
@@ -250,4 +252,6 @@ int main(int argc, char *argv[]) {
     printf("Totals across all tapes...\n");
     printf("Moves: %d\n", move_total);
     printf("Instructions: %d\n", instr_total);
+
+    printf("\033[?25h");
 }
