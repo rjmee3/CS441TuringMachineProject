@@ -20,20 +20,23 @@ int main(int argc, char *argv[]) {
         bin_file = fopen(argv[1], "rb");
         if (bin_file == NULL) {
             fprintf(stderr, "ERROR: .bin file failed to open.\n");
-            return 1;
+            exit(EXIT_FAILURE);
         }
 
         tape_file = fopen(argv[2], "r");
         if (tape_file == NULL) {
             fprintf(stderr, "ERROR: .tape file failed to open.\n");
-            return 1;
+            exit(EXIT_FAILURE);
         }
     } else if (argc == 5) {
+        // using regex to make sure argv[2] is a number when animating
         regex_t regex_num;
         if (regcomp(&regex_num, "^[0-9]*$", 0) != 0) {
             fprintf(stderr, "ERROR: RegEx failed to compile.\n");
             exit(EXIT_FAILURE);
         }
+
+        // enable animation if argv[1] is -a or --animate and if argv[2] is a number
         if (strcmp(argv[1], "-a") != 0 && strcmp(argv[1], "--animate") != 0) {
             fprintf(stderr, "ERROR: argv[1] - Invalid Option. Expected [-a|--animate].\n");
             exit(EXIT_FAILURE);
@@ -49,17 +52,18 @@ int main(int argc, char *argv[]) {
         bin_file = fopen(argv[3], "rb");
         if (bin_file == NULL) {
             fprintf(stderr, "ERROR: .bin file failed to open.\n");
-            return 1;
+            exit(EXIT_FAILURE);
         }
 
         tape_file = fopen(argv[4], "r");
         if (tape_file == NULL) {
             fprintf(stderr, "ERROR: .tape file failed to open.\n");
-            return 1;
+            exit(EXIT_FAILURE);
         }
     } else {
+        // print usage if incorrect number of arguments is passed
         fprintf(stderr, "Usage: ./SUNY_VM [-a|--animate] [number of microseconds] <*.bin> <*.tape>\n");
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     // determining size of file
@@ -70,7 +74,7 @@ int main(int argc, char *argv[]) {
     // throw error for an empty bin file
     if (fileSize == 0) {
         fprintf(stderr, "ERROR: Empty .bin file.\n");
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     // calculating number of instructions based on file size
@@ -80,7 +84,7 @@ int main(int argc, char *argv[]) {
     tm_encoding* instructions = (tm_encoding*)malloc(numInstructions * sizeof(tm_encoding));
     if (instructions == NULL) {
         fprintf(stderr, "ERROR: Instruction memory allocation failed.\n");
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     // read in binary data
@@ -88,7 +92,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "ERROR: Instruction reading failed.\n");
         free(instructions);
         fclose(bin_file);
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     // close bin file stream
@@ -165,10 +169,12 @@ int main(int argc, char *argv[]) {
 
             // switch based on OPCODE
             switch (instr_reg.generic.opcode) {
+            /********************* ALPHA INSTRUCTION *********************/
             case TM_OPCODE_ALP:
                 alphabet[instr_reg.alpha.letter] = true;
                 break;
 
+            /********************** CMP INSTRUCTION **********************/
             case TM_OPCODE_CMP:
                 if (!alphabet[readTape(&tape)] && !isBlank(&tape)) {
                     stop = true;
@@ -188,6 +194,7 @@ int main(int argc, char *argv[]) {
                 }
                 break;
 
+            /********************** JMP INSTRUCTION **********************/
             case TM_OPCODE_JMP:
                 if ((instr_reg.jmp.ne == instr_reg.jmp.eq) 
                  || (instr_reg.jmp.eq == eq_flag) 
@@ -196,6 +203,7 @@ int main(int argc, char *argv[]) {
                 }
                 break;
 
+            /********************* DRAW INSTRUCTION **********************/
             case TM_OPCODE_DRW:
                 if (instr_reg.draw.blank) {
                     setBlank(&tape);
@@ -204,12 +212,14 @@ int main(int argc, char *argv[]) {
                 }
                 break;
 
+            /********************* MOVE INSTRUCTION **********************/
             case TM_OPCODE_MOV:
                 moveTape(&tape, instr_reg.move.amount);
                 move_counter += abs(instr_reg.move.amount);
                 move_total += abs(instr_reg.move.amount);
                 break;
 
+            /********************* STOP INSTRUCTION **********************/
             case TM_OPCODE_STP:
                 if (!instr_reg.stop.halt) {
                     fail = true;
@@ -219,6 +229,7 @@ int main(int argc, char *argv[]) {
             
             default:
                 fprintf(stderr, "ERROR: IMPOSSIBLE INSTRUCTION.");
+                exit(EXIT_FAILURE);
                 break;
             }
         }

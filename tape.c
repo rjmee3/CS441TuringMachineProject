@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include "tape.h"
 
+// initializes the tape to all blank cells, and places the 
+// input string on the tape, keeping the head on the first
+// character of said string
 void initTape(Tape* tape, char* input) {
     for (int i = 0; i < TAPE_LENGTH; i++) {
         tape->pos_tape[i].blank = true;
@@ -23,10 +26,12 @@ void initTape(Tape* tape, char* input) {
     }
 }
 
+// moves head of the tape
 void moveTape(Tape* tape, int move) {
     tape->index += move;
 }
 
+// writes the char passed to the tape
 void writeTape(Tape* tape, char symbol) {
     if (tape->index >= 0) {
         tape->pos_tape[tape->index].symbol = symbol;
@@ -37,6 +42,7 @@ void writeTape(Tape* tape, char symbol) {
     }
 }
 
+// reads the char on the tape
 char readTape(Tape* tape) {
     if (tape->index >= 0) {
         return tape->pos_tape[tape->index].symbol;
@@ -45,6 +51,7 @@ char readTape(Tape* tape) {
     }
 }
 
+// sets tape to blank
 void setBlank (Tape* tape) {
     if (tape->index >= 0) {
         tape->pos_tape[tape->index].blank = true;
@@ -55,6 +62,7 @@ void setBlank (Tape* tape) {
     }
 }
 
+// returns if the tape is blank
 bool isBlank(Tape* tape) {
     if (tape->index >= 0) {
         return tape->pos_tape[tape->index].blank;
@@ -63,6 +71,7 @@ bool isBlank(Tape* tape) {
     }
 }
 
+// prints tape and head pointer
 void printTape(Tape* tape) {
 
     char full_tape[TAPE_LENGTH*2+1];
